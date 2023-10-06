@@ -1,0 +1,59 @@
+{% extends 'partials/base.html'%}
+{% block title%}Desktop Select{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+{% if workstation %}
+<div class="container col-md-10 " style="padding: 0px; padding-right: 25px;" >
+    <div class="row my-2">
+        <p style="padding-left: 25px;"><h4> Select Desktop To Move </h4></p>
+        <div class="col-md-12">   
+            <table class="table bg-gray" style="white-space: nowrap;word-spacing:1px;">
+                <thead class="bg-info">
+                    <tr class="text-white" style="font-size: small;">
+                        <th scope="col">Computer Name</th>
+                        <th scope="col">Desktop S/N</th>
+                        <th scope="col">RAM </th>
+                        <th scope="col">Disk </th>
+                        <th scope="col">Monitor S/N</th>
+                        <th scope="col">Keyboard S/N</th>
+                        <th scope="col">Mouse S/N</th>
+                        <th scope="col">Region</th>
+                        <th scope="col">Condition</th>
+                        <th scope="col">Assigned User</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in workstation %}   
+                    <a href="#">
+                    <tr style="font-size: smaller; cursor: pointer;"> 
+                        <td><a href="#">{{ item.name}}</a></td>
+                        <td>{{ item.sn}}</td>
+                        <td>{{ item.ram}} GB </td>                      
+                        <td>{{ item.hard_disk }} GB </td>                  
+                            
+                        <td>{{ item.monitor_sn}}</td>
+                           
+                        <td> {{ item.keyboard_sn }}</td>
+                        <td>{{item.mouse_sn}}</td>
+                    
+                        <td>{{ item.region}}</td>
+                        <td>{{ item.condition}}</td>
+                        <td>{{ item.user}}</td>
+                        
+                    </tr>
+                    </a>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!--End Table-->
+{% else %}
+<p>No Desktop Found. create one by clicking <a href="{% url 'dashboard-add-desktop'%}">Add desktop</a> </p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'partials/base.html' %}
+{% block title %} Add Laptop Page {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container col-md-10" style="overflow-y: scroll; max-height: 580px;">
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="border bg-white p-3">
+                <h3> Add Laptop</h3>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ lp_form|crispy }}
+                    <input class="btn btn-success" type="submit" value="Add">
+                    <a class="btn btn-secondary pull-right" href="{% url 'dashboard-laptop' %}">Cancel</a>
+                </form>
+            </div>
+        </div> 
+
+    </div>
+</div>
+
+{% endblock %}

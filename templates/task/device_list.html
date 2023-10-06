@@ -1,0 +1,10 @@
+<ul>
+    {% for device in devices %}
+      <li>
+        <a href="{% url 'select_serial' device_type=device_type device_id=device.id %}">
+          {{ device.serial_number }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  

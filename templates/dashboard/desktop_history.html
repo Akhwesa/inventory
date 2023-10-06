@@ -1,0 +1,42 @@
+{% extends 'partials/base.html'%}
+{% block title%}Desktop Histry{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<a class="btn btn-warning btn-sm " style="margin-right: 20px;" href="{% url 'dashboard-desktop-detail' des.pk %}">Go Back</a>
+
+<div class="container col-md-10  " style="padding: 0px; padding-right: 5px; max-width: 1120px; max-height: 580px;" >
+    
+    <div class="row mt-4">
+        <div class="col-md-12 ">
+            <div class="border bg-white p-3">
+                <div class="box-body">
+                    <h3>Desktop Historical Details for {{ des.Computer_Name }}</h3>
+
+        <ul>
+        {% for record in his %}
+            <li>
+                <strong>Change Date:</strong> {{ record.history_date }}<br>
+                <strong>Changed By:</strong> {{ record.history_user }}<br>
+                <strong>Changed Type:</strong> {{ record.history_type }}<br>
+                <strong>Instance:</strong> {{ record.prev_record }}<br>
+                <strong>Instance type:</strong> {{ record.next_record }}<br>
+                <strong>Changes:</strong><br>
+                <ul>
+                    {% for change in record.diff_against_previous %}
+                        <li>{{ change.field }} changed from "{{ change.old }}" to "{{ change.new }}"</li>
+                    {% endfor %}
+                </ul>
+            </li>  
+        {% endfor %}
+        </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'partials/base.html'%}
+{% block title%}Devices Page{% endblock%}
+
+{% block content %}
+<div class="container col-md-10 " style="padding: 0px; padding-right: 25px;" >
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Equitments
+                </div>
+                <div class="card-body bg-gray">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'dashboard-phone' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Mobile Phones <i class="fa fa-mobile-phone"></i></h4>
+                                    <h3>{{ mp_count }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'dashboard-desktop' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Desktop <i class="fa fa-desktop"></i></h4>
+                                    <h3>{{ wks_count }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="text-decoration-none text-dark" href="{% url 'dashboard-laptop' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Laptops <i class="fa fa-laptop"></i></h4>
+                                    <h3>{{ lt_count }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4" style="padding-top: 15px;">
+                            <a class="text-decoration-none text-dark" href="{% url 'dashboard-printer' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Printers <i class="fa-solid fa-print"></i></h4>
+                                    <h3>{{ pt_count }}</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4" style="padding-top: 15px;">
+                            <a class="text-decoration-none text-dark" href="{% url 'dashboard-network' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Networking <i class="fa fa-server"></i></h4>
+                                    <h3>{{nw_count}}</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-4" style="padding-top: 15px;">
+                            <a class="text-decoration-none text-dark" href="{% url 'dashboard-accessory' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Accessories <i class="fa-solid fa-microchip"></i></h4>
+                                    <h3>12</h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

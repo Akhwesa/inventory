@@ -1,0 +1,57 @@
+{% extends 'partials/base.html'%}
+{% block title%}Network Devices Page{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+<a class="btn btn-warning btn-sm" href="{% url 'dashboard-devices'%}">Go Back</a> 
+<a class="btn btn-info btn-sm pull-right" href="#" style="margin-right: 20px;">Add Device</a>
+{% if NW %}
+<div class="container col-md-10 " style="padding: 0px; padding-right: 25px;" >
+    <div class="row my-2">
+        <div class="col-md-12">   
+            <table class="table bg-gray" style="white-space: nowrap;word-spacing:1px;">
+                <thead class="bg-info">
+                    <tr class="text-white" style="font-size: smaller;">
+                        <th scope="col">Type</th>
+                        <th scope="col">Serial Number</th>
+                        <th scope="col">Make </th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Region</th>                        
+                        <th scope="col">Station</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Assigned User</th>
+                        <th scope="col"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in NW %}   
+                    <tr style="font-size: smaller;"> 
+                                           
+                        <td><a class="btn btn-link">{{ item.N_type}}</a></td>
+                        <td>{{ item.N_SN}}</td>
+                        <td>{{ item.N_make}}</td>                      
+                        <td><a href="javascript:void(0);" onclick="window.open('/add/laptop/', 'Popup', 'width=400,height=300')">{{ item.N_model }} </a></td>                  
+                            
+                        <td>{{ item.region}}</td>
+                        <td>{{ item.station}}</td>
+                        <td>{{ item.status}}</td>
+                        <td>{{ item.assign}}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="#">See More</a>
+                        </td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!--End Table-->
+{% else %}
+<p>No Device Found. create one by clicking <a href="#">Add Network Device</a> </p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'partials/base.html'%}
+{% block title%}Laptop Page{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+
+<a class="btn btn-warning btn-sm" href="{% url 'dashboard-devices'%}">Go Back</a> 
+<a class="btn btn-info btn-sm pull-right" href="{% url 'dashboard-add-laptop'%}" style="margin-right: 20px;">Add Laptop</a> 
+<a class="btn btn-secondary btn-sm pull-right" style="margin-right: 20px;" href="{% url 'dashboard-laptop'%}">Refresh</a> 
+
+{% if lappy %}
+<div class="container col-md-10 " style="padding: 0px;padding-right: 15px;" >
+    <div class="row my-2">
+        
+        <div class="col-md-12">          
+        <form class="form-inline" role="search" method="POST">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Computer_Name" name="search_query" required aria-label="Search">
+            <button class="btn btn-outline-success " type="submit">Search</button>
+
+            </form>
+            </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-12">           
+            <table class="table bg-gray" style="white-space: nowrap;font-size:small; word-spacing:1px;">
+                <thead class="bg-info">
+                    <tr class="text-white" style="white-space: nowrap;">
+                        <th scope="col">Computer Name</th>
+                        <th scope="col">Make</th>
+                        <th scope="col">Serial Number</th>
+                        <th scope="col">RAM Size</th>
+                        <th scope="col">Hard disk Size</th>
+                        <th scope="col">Region</th>
+                        <th scope="col">station</th>
+                        <th scope="col">Condition</th>
+                        <th scope="col">Assigned User</th>
+                        <th>    
+                            <a class="btn btn-secondary btn-sm" style="font-size: smaller;" href="{% url 'laptop-excel' %}">Download <i class="fa-solid fa-download"></i></a>
+                        </th>
+                        
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for items in lappy %}
+                    <tr>                           
+                        <td>{{ items.name}}</td>
+                        <td>{{ items.make}}</td>
+                        <td>{{ items.sn}}</td>
+                        <td>{{ items.ram}} GB</td>
+                        <td>{{ items.hard_disk }} GB</td>
+                        <td>{{ items.region}}</td>
+                        <td>{{ items.station}}</td>
+                        <td>{{ items.condition}}</td>
+                        <td>{{ items.user}}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="{% url 'dashboard-laptop-detail' items.pk %}">See More</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!--End Table-->
+{% else %}
+<p>No Laptop Found.<br> Create one by clicking <a href="{% url 'dashboard-add-laptop'%}">Add Laptop</a>.</p>
+
+{% endif %}
+{% endblock %}

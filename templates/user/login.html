@@ -1,0 +1,27 @@
+{% extends 'partials/base.html' %}
+{% block title %} Login Page {% endblock %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-6 offset-md-3">
+            <div class="border bg-white p-3">
+                <h3 style="color: blue; text-align: center;"> Nairobi Water Company Inventory</h3>
+                <img src="{% static 'logo.jpg' %}" alt="nwc logo" style="margin-left:auto; margin-right: auto; display: block;">
+                <hr>
+                <form method="POST">
+
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <input class="btn btn-success" type="submit" value="Login">
+                </form>
+            </div>
+        </div> 
+
+    </div>
+</div>
+
+{% endblock %}

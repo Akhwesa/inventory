@@ -1,0 +1,79 @@
+{% extends 'partials/base.html'%}
+{% block title%}Hard Disks Page{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+{% if items %}
+<div class="container" >
+    <div class="row my-4">
+        <div class="col-md-4">
+            <div class="border bg-white p-3">
+                <h4>Add New Hard Disk </h4><br>
+                <p>For Laptop.</p>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ add_hdd_form|crispy }}
+                    <input class="btn btn-success btn-block" type="submit" value="Add Disk">
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-8">   
+            <table class="table bg-gray" style="white-space: nowrap;font-size:small; word-spacing:1px;" >
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col">Disk Make</th>
+                        <th scope="col">Disk S/N</th>
+                        <th scope="col">Disk Size</th>
+                        <th scope="col">Disk Type</th>
+                        <th scope="col">Desktop Assigned</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}   
+                    <tr> 
+                        <td>{{ item.LT_HDD_model}}</td>
+                        <td>{{ item.LT_HDD_SN}}</td>                
+                        <td>{{ item.size }} GB</td>              
+                        <td>{{ item.type }} </td>              
+                        <td>{{ item.HDD_pc }} </td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="">Delete</a>
+                        </td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!--End Table-->
+{% else %}
+<div class="container" >
+    <div class="row my-2">
+        <div class="col-md-4">
+            <div class="borderDisk bg-white p-3">
+                <h4>Add hard Disk</h4>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ add_hdd_form|crispy }}
+                    <input class="btn btn-success btn-block" type="submit" value="Add Disk">
+
+                </form>
+            </div>
+        </div>
+        <p>No Disk Found. create one...</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

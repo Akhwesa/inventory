@@ -1,0 +1,95 @@
+{% extends 'partials/base.html' %}
+{% block title %} Issuance Page {% endblock %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-11 offset-md-1">
+            <div class="border bg-white p-3">
+                <h3> ICT Desktop Movement Form</h3>
+                <hr>
+                <div class="box box-info"> 
+                <form method="POST" class="form-horizontal" style="width: 100%;" enctype="multipart/form-data" name="form">
+                    {% csrf_token %}
+                <div class="box-body">
+                    <div class="panel panel-default">
+                        <div class="panel-body bg-gray text-bold">
+                            Desktop Details (required fields): <hr>
+                            <div>
+                            <p class="pull-right" style="padding-right: 150px;"> Computer Name: {{ item.Computer_Name}}</p>
+                            <p style="padding-left: 50px;">Device Serial: {{ item.Serial_Number}}</p>
+                            <p class="pull-right" style="padding-right: 150px;"> Computer Make: {{ item.Desktop_Make}}</p>
+                            <p style="padding-left: 50px;"> Processor: {{ item.Processor}}</p>
+                            <p class="pull-right" style="padding-right: 150px;"> Station: {{ item.station}}</p>
+                            <p style="padding-left: 50px;"> Region: {{ item.region}}</p>
+                            </div>
+                            <p class="pull-right" style="padding-right: 150px;"> Department: {{ item.department}}</p>
+                            <p style="padding-left: 50px;"> Current User: {{ item.assign}}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group {% if issueform.Issued.errors %}has-error{% endif %}">
+                        <label class="control-label col-lg-4 text-pull-left" for="{{ issueform.Issued.id_for_label }}">{{ issueform.Issued.label }}</label>
+                        <div class="col-lg-6">
+                            {{ issueform.Issued }}
+                            {% if issueform.Issued.errors %}
+                                <span class="help-block">{{ issueform.Issued.errors }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group {% if issueform.Technician.errors %}has-error{% endif %}">
+                        <label class="control-label col-lg-4 text-pull-left" for="{{ issueform.Technician.id_for_label }}">{{ issueform.Technician.label }}</label>
+                        <div class="col-lg-6">
+                            {{ issueform.Technician }}
+                            {% if issueform.Technician.errors %}
+                                <span class="help-block">{{ issueform.Technician.errors }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="form-group {% if issueform.Approver.errors %}has-error{% endif %}">
+                        <label class="control-label col-lg-4 text-pull-left" for="{{ issueform.Approver.id_for_label }}">{{ issueform.Approver.label }}</label>
+                        <div class="col-lg-6">
+                            {{ issueform.Approver }}
+                            {% if issueform.Approver.errors %}
+                                <span class="help-block">{{ issueform.Approver.errors }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group {% if issueform.subject.errors %}has-error{% endif %}">
+                        <label class="control-label col-lg-4 text-pull-left" for="{{ issueform.subject.id_for_label }}">{{ issueform.subject.label }}</label>
+                        <div class="col-lg-6">
+                            {{ issueform.subject }}
+                            {% if issueform.subject.errors %}
+                                <span class="help-block">{{ issueform.subject.errors }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+            <div class="form-group {% if issueform.comment.errors %}has-error{% endif %}">
+                <label class="control-label col-lg-4" for="{{ issueform.comment.id_for_label }}">{{ issueform.comment.label }}</label>
+                <div class="col-lg-6">
+                    <textarea class="form-control"  id="{{ issueform.comment.id_for_label }}" name="{{ issueform.comment.html_name }}"
+                    value="{{ issueform.comment.value|default_if_none:'' }}"></textarea>
+                   
+                    {% if issueform.comment.errors %}
+                        <span class="help-block">{{ issueform.comment.errors }}</span>
+                    {% endif %}
+                </div>
+            </div>
+                
+                <a class="btn btn-secondary" href="{% url 'task-desktop-select' %}">Cancel</a>
+                <input class="btn btn-success pull-right" type="submit" value="Submit Form">
+                </div>
+                </form>
+                </div>
+            </div>
+        </div> 
+
+    </div>
+</div>
+
+{% endblock %}

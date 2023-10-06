@@ -1,0 +1,81 @@
+{% extends 'partials/base.html'%}
+{% block title%}Desktop Page{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+<a class="btn btn-warning btn-sm" href="{% url 'dashboard-devices'%}">Go Back</a> 
+<a class="btn btn-info btn-sm pull-right" href="{% url 'dashboard-add-desktop'%}"style="margin-right: 20px;">Add Desktop</a>
+
+<a class="btn btn-secondary btn-sm pull-right" style="margin-right: 20px;" href="{% url 'dashboard-desktop'%}">Refresh</a> 
+{% if workstation %}
+<div class="container col-md-10 " style="padding: 0px; padding-right: 25px;" >
+    
+    <div class="row my-2">
+        
+        <div class="col-md-12">          
+        <form class="form-inline" role="search" method="POST">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Computer_Name" name="search_query" required aria-label="Search">
+            <button class="btn btn-outline-success " type="submit">Search</button>
+
+            </form>
+            </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-md-12">   
+            <table class="table bg-gray" style="white-space: nowrap;word-spacing:1px;">
+                <thead class="bg-info">
+                    <tr class="text-white" style="font-size: smaller;">
+                        <th scope="col">Computer Name</th>
+                        <th scope="col">Desktop S/N</th>
+                        <th scope="col">RAM </th>
+                        <th scope="col">Disk </th>
+                        <th scope="col">Monitor S/N</th>
+                        <th scope="col">Keyboard S/N</th>
+                        <th scope="col">Mouse S/N</th>
+                        <th scope="col">Region</th>
+                        <th scope="col">Station</th>
+                        <th scope="col">Condition</th>
+                        <th scope="col">Assigned User</th>
+                        <th scope="col">
+                            <a class="btn btn-secondary btn-sm" style="font-size: smaller;" href="{% url 'desktop-excel' %}">Download <i class="fa-solid fa-download"></i></a>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in workstation %}   
+                    <tr style="font-size: smaller;"> 
+                                           
+                        <td><a class="btn btn-link">{{ item.name}}</a></td>
+                        <td>{{ item.sn}}</td>
+                        <td><a href="javascript:void(0);" onclick="window.open('/add/laptop/', 'Popup', 'width=400,height=300')">{{ item.ram}} GB </a></td>                      
+                        <td><a class="btn btn-link" href=""></a>{{ item.hard_disk }} GB </a></td>                  
+                            
+                        <td><a class="btn btn-link" href="">{{ item.monitor_sn}}</a></td>
+                           
+                        <td><a class="btn btn-link" href=""> {{ item.keyboard_sn }} </a> </td>
+                        <td><a class="btn btn-link" href="">{{item.mouse_sn}}</a></td>
+                    
+                        <td>{{ item.region}}</td>
+                        <td>{{ item.station}}</td>
+                        <td>{{ item.condition}}</td>
+                        <td>{{ item.user}}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="{% url 'dashboard-desktop-detail' item.pk %}">See More</a>
+                        </td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!--End Table-->
+{% else %}
+<p>No Desktop Found. create one by clicking <a href="{% url 'dashboard-add-desktop'%}">Add desktop</a> </p>
+{% endif %}
+{% endblock %}

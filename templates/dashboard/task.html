@@ -1,0 +1,100 @@
+{% extends 'partials/base.html'%}
+{% block title%}Devices Page{% endblock%}
+
+{% block content %}
+<div class="container col-md-10 " style="padding: 0px; padding-right: 25px;" >
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    Tasks
+                </div>
+                <div class="card-body bg-gray">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <a class="text-decoration-none text-dark" href="{% url 'task-assign'%}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Assign <i class="fas fa-user-edit"></i></h4>
+                                    <h3>4</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a class="text-decoration-none text-dark" href="{% url 'task-movement' %}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Transfers <i class="fa fa-exchange"></i></h4>
+                                    <h3>4</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a class="text-decoration-none text-dark" href="{% url 'task-repair'%}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Repairs <i class="fa-solid fa-screwdriver-wrench"></i></h4>
+                                    <h3>4</h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a class="text-decoration-none text-dark" href="{% url 'task-maintenance'%}">
+                                <div class="card my-card shadow text-center p-3">
+                                    <h4>Maintenace <i class="fas fa-users-cog"></i></h4>
+                                    <h3>4</h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-4">
+        
+        <div class="col-md-12">   
+            {% if tr %}
+            <table class="table bg-gray" style="white-space: nowrap;font-size:small; word-spacing:1px;" >
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col">Requester</th>
+                        <th scope="col">Request No:</th>
+                        <th scope="col">Request Type </th>
+                        <th scope="col">Device Type</th>
+                        <th scope="col">Device Serial</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Requested</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in tr %}   
+                    <tr>      
+                        <td>{{ item.requester }} </td>  
+                        <td>{{ item.request_number}}</td>
+                        <td>{{ item.request_type}}</td>                
+                        <td>{{ item.device }} </td>            
+                        <td>{{ item.device_serial }} </td>   
+                        <td>{{ item.subject }} </td>     
+                        <td>{{ item.assigned }} </td>     
+                        <td>{{ item.status }} </td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="">Delete</a>
+                        </td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+{% else %}
+<p>No Request tasks available currently </p>
+{% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

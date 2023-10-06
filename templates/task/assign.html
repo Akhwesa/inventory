@@ -1,0 +1,87 @@
+{% extends 'partials/base.html'%}
+{% block title%}Assign Request{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container col-md-10 " style="padding: 0px; padding-right: 25px; " >
+    
+    <div class="row my-2">
+        <div class="col-md-12">
+        <h2>Choose Device Category To Assign</h2><br>
+        <div class=" col-md-4">
+            <div class="card my-card shadow text-center p-2">
+            <a href="{% url 'task-desktop-select' %}">
+                <i class="fa fa-desktop"> Assign Desktop</i>
+            </a>
+            </div>
+        </div>
+        <div class=" col-md-4">
+            <div class="card my-card shadow text-center p-2">
+            <a href="{% url 'task-laptop-select-issue' %}">
+                <i class="fa fa-laptop"> Laptop</i>
+            </a>
+            </div>
+        </div>
+        <div class=" col-md-4">
+            <div class="card my-card shadow text-center p-2">
+            <a href="#">
+                <i class="fa fa-mobile-phone"> mobile-phone</i>
+            </a>
+            </div>
+        </div>
+        </div>
+    </div> 
+    <div class="row my-4">
+        
+        <div class="col-md-12">   
+            {% if assigned %}
+            <table class="table bg-gray" style="white-space: nowrap;font-size:small; word-spacing:1px;" >
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col">Requester</th>
+                        <th scope="col">Request No:</th>
+                        <th scope="col">Request Type </th>
+                        <th scope="col">Device Type</th>
+                        <th scope="col">Device Serial</th>
+                        <th scope="col">Subject</th>
+                        <th scope="col">Issue Device To</th>
+                        <th scope="col">Authorized By</th>
+                        <th scope="col">Technician</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in assigned %}   
+                    <tr>      
+                        <td>{{ item.requester }} </td>  
+                        <td>{{ item.request_number}}</td>
+                        <td>{{ item.request_type}}</td>                
+                        <td>{{ item.device }} </td>            
+                        <td>{{ item.device_serial }} </td>   
+                        <td>{{ item.subject }} </td>     
+                        <td>{{ item.Issued }} </td>     
+                        <td>{{ item.Approver }} </td>     
+                        <td>{{ item.Technician }} </td>     
+                        <td>{{ item.status }} </td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="">Delete</a>
+                        </td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+{% else %}
+<p>No Assign tasks available currently </p>
+{% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

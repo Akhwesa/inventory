@@ -1,0 +1,34 @@
+{% extends 'partials/base.html'%}
+{% block title%}Movement Request{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container col-md-10 " style="padding: 0px; padding-right: 25px; " >
+    <h2>Choose Device Category To Move</h2><br>
+    <div class="row">
+        <div class=" col-md-4">
+            <div class="card my-card shadow text-center p-3">
+            <a href="{% url 'task-desktop-select-move' %}">
+                <i class="fa fa-desktop"> Transfer Desktop</i>
+            </a>
+            </div>
+        </div>
+        <div class=" col-md-4">
+            <div class="card my-card shadow text-center p-3">
+            <a href="{% url 'task-laptop-select-move' %}">
+                <i class="fa fa-laptop"> Transfer Laptop</i>
+            </a>
+            </div>
+        </div>
+        <div class=" col-md-4">
+            <div class="card my-card shadow text-center p-3">
+            <a href="#">
+                <i class="fa fa-mobile-phone"> Transfer mobile-phone</i>
+            </a>
+            </div>
+        </div>
+    </div> 
+</div>
+
+{% endblock %}

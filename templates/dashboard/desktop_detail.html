@@ -1,0 +1,171 @@
+{% extends 'partials/base.html'%}
+{% block title%}Desktop Details{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="col-md-10">
+
+<a class="btn btn-warning btn-sm " style="margin-right: 20px;" href="{% url 'dashboard-desktop' %}">Go Back</a>
+<a class="btn btn-secondary btn-sm pull-right" style="margin-right: 20px;" href="{%  url 'dashboard-desktop-history' item.id %}">Historical</a>
+
+<a class="btn btn-primary btn-sm pull-right" style="margin-right: 20px;" href="#">Print <i class="fa-solid fa-print"></i></a>
+
+<div class="container col-md-12  " style="padding: 0px; padding-right: 5px; overflow: scroll; max-width: 1120px; max-height: 580px;" >
+    
+    <div class="row mt-4">
+        <div class="col-md-12 ">
+            <div class="border bg-white p-3">
+                <div class="box-body">
+                    <div class="panel panel-default" style="margin-bottom: 5px;">
+                        <div class="panel-body bg-gray text-bold">
+                            <h4 style="color: #17a2b8;">Desktop Details</h4>
+                            <div>
+                                <p class="pull-right" style="padding-right: 50px; line-height: 0.8;"> Computer Name: {{ item.Computer_Name}}</p>
+                                <p style="padding-left: 50px; line-height: 0.8;">Device Serial: {{ item.Serial_Number}}</p>
+                                <p class="pull-right" style="padding-right: 50px; line-height: 0.8;"> Computer Make: {{ item.Desktop_Make}}</p>
+                                <p style="padding-left: 50px; line-height: 0.8;"> Processor: {{ item.Processor}}</p>
+                                <p class="pull-right" style="padding-right: 50px; line-height: 0.8;"> Station: {{ item.station}}</p>
+                                <p style="padding-left: 50px; line-height: 0.8;"> Region: {{ item.region}}</p>
+                                <p class="pull-right" style="padding-right: 50px; line-height: 0.8;"> Office: {{ item.Office_Suite}}</p>
+                                <p style="padding-left: 50px; line-height: 0.8;"> Anti Virus: {{ item.anti_virus}}</p>
+                                <p class="pull-right" style="padding-right: 50px;"> Operating System: {{ item.Operating_System}}</p>
+                                <p style="padding-left: 50px;"> Condition: {{ item.Condition}}</p>
+                                </div>
+                                
+                                <p class="pull-right" style="padding-right: 50px; line-height: 0.8;"> Department: {{ item.station}}</p>
+                                <p style="padding-left: 50px; line-height: 0.8;"> Exact Location: {{ item.Location}}</p>
+                                <p class="pull-right" style="padding-right: 50px; line-height: 0.8;"> Last Updated: {{ item.last_updated}}</p>
+                                <p style="padding-left: 50px; line-height: 0.8;"> Current User: {{ item.assign}}</p>
+                                
+                        </div>
+                    </div>
+                    <div class="panel panel-default" style="margin-bottom: 5px;">
+                        {% if mt%}
+                        
+                        <div class="panel-body bg-gray text-bold">
+                            <h4 style="color: #17a2b8;">Monitor</h4>
+                            <div>
+                                <a class="badge badge-danger pull-right bg-red" href="{% url 'dashboard-disconnect-desktop-monitor' pk=item.id pk1=mt.id  %}" style="padding-right: 20px;margin-left: 20px; margin-bottom: 20px;">Disconnect</a>
+                                <p class="pull-right" style="padding-right: 50px;"> Monitor Make: {{ mt.monitor_make}}</p>
+                                <p style="padding-left: 50px;">Monitor Serial: {{ mt.monitor_SN}}</p>
+                                </div>
+                            </div>
+                        {% else %}
+                        <a class="badge badge-success bg-green pull-right" href="{% url 'dashboard-connect-desktop-monitor' pk=item.id %}" style="padding-right: 20px;">Connect</a>
+                        
+                        <div class="panel-body bg-gray text-bold">
+                            
+                            <h4 style="color: #17a2b8;">Monitor</h4>
+                            <div class="alert alert-warning" role="alert"> No Monitor is currecntly connected to this Desktop. Click connect to add a Monitor</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="panel panel-default" style="margin-bottom: 5px;">
+                        {% if drive%}
+                        
+                        <div class="panel-body bg-gray text-bold">
+                            <h4 style="color: #17a2b8;">Hard Drives</h4>
+                            {% for d in drive %}
+                            <div>
+                                <a class="badge badge-danger pull-right bg-red" href="{% url 'dashboard-disconnect-desktop-hdd' pk=item.id pk1=d.id %}" style="padding-right: 20px;margin-left: 20px; margin-top: 20px;">Disconnect</a><br>
+                                <p class="pull-right" style="padding-right: 50px; line-height: 0.5;"> Drive Model: {{ d.HDD_model}}</p>
+                                <p style="padding-left: 50px; line-height: 0.5;">Drive Serial: {{ d.HDD_SN}}</p>
+                                <p class="pull-right" style="padding-right: 50px;line-height: 0.5;"> Drive Type: {{ d.Hard_disk_type}}</p>
+                                <p style="padding-left: 50px; line-height: 0.5;">Drive Size: {{ d.Hard_disk_Size}} GB</p>
+                                </div><hr>
+                                
+                            {% endfor %}
+                            
+                            {% if dr_count <= 4 %}
+                                <a class="badge badge-success bg-green pull-right" href="{% url 'dashboard-connect-desktop-hdd' pk=item.id %}" style="padding-right: 20px;">Connect</a>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <a class="badge badge-success bg-green pull-right" href="{% url 'dashboard-connect-desktop-hdd' pk=item.id %}" style="padding-right: 20px;">Connect</a>
+                        
+                        <div class="panel-body bg-gray text-bold">
+                            
+                            <h4 style="color: #17a2b8;">Hard Drive</h4>
+                            <div class="alert alert-warning" role="alert"> No Hard Drive is currecntly connected to this Desktop. Click connect to add a Disk</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="panel panel-default" style="margin-bottom: 5px;">
+                        {% if rm %}
+                        
+                        <div class="panel-body bg-gray text-bold">
+                            <h4 style="color: #17a2b8;">RAM</h4>
+                            {% for d in rm%}
+                            <div>
+                                <a class="badge badge-danger pull-right bg-red" href="{% url 'dashboard-disconnect-desktop-ram' pk=item.id pk1=d.id %}" style="padding-right: 20px;margin-left: 20px; margin-top: 20px;">Disconnect</a><br>
+                                <p class="pull-right" style="padding-right: 50px; line-height: 0.5;"> Ram Model: {{ d.RAM_make}}</p>
+                                <p style="padding-left: 50px; line-height: 0.5;">RAM Serial: {{ d.RAM_SN}}</p>
+                                <p style="padding-left: 50px; line-height: 0.5;">RAM Size: {{ d.RAM_Size}} GB</p>
+                                </div><hr>                                
+                            {% endfor %}
+                            
+                            {% if rm_count <= 4 %}
+                            <a class="badge badge-success bg-green pull-right" href="{% url 'dashboard-connect-desktop-ram' pk=item.id %}" style="padding-right: 20px;">Connect</a>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <a class="badge badge-success bg-green pull-right" href="{% url 'dashboard-connect-desktop-ram' pk=item.id %}" style="padding-right: 20px;">Connect</a>
+                        
+                        <div class="panel-body bg-gray text-bold">
+                            
+                            <h4 style="color: #17a2b8;">RAM</h4>
+                            <div class="alert alert-warning" role="alert"> No RAM Memory is currecntly connected to this Desktop. Click connect to add a RAM Memory</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="panel panel-default" style="margin-bottom: 5px;">
+                        {% if ky %}
+                        <div class="panel-body bg-gray text-bold">
+                            <h4 style="color: #17a2b8;">Keyboard</h4>
+                            <div>
+                                <a class="badge badge-danger pull-right bg-red" href="{% url 'dashboard-disconnect-desktop-keyboard' pk=item.id pk1=ky.id  %}" style="padding-right: 20px;margin-left: 20px; margin-bottom: 20px;">Disconnect</a>
+                                <p class="pull-right" style="padding-right: 50px;"> Keyboard Make: {{ ky.Keyboard_make}}</p>
+                                <p style="padding-left: 50px;">Keyboard Serial: {{ ky.keyboard_SN}}</p>
+                                </div>
+                            </div>
+                        {% else %}
+                        <a class="badge badge-success bg-green pull-right" href="{% url 'dashboard-connect-desktop-keyboard' pk=item.id %}" style="padding-right: 20px;">Connect</a>
+                        
+                        <div class="panel-body bg-gray text-bold">
+                            
+                            <h4 style="color: #17a2b8;">Keyboard</h4>
+                            <div class="alert alert-warning" role="alert"> No Keyboard is currecntly connected to this Desktop. Click connect to add a Keyboard</div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="panel panel-default" style="margin-bottom: 5px;">
+                        {% if ms%}
+                        <div class="panel-body bg-gray text-bold">
+                            <h4 style="color: #17a2b8;">Mouse</h4>
+                            <div>
+                                <a class="badge badge-danger pull-right bg-red" href="{% url 'dashboard-disconnect-desktop-mouse' pk=item.id pk1=ms.id  %}" style="padding-right: 20px; margin-left: 20px; margin-bottom: 20px;">Disconnect</a>
+                       
+                                <p class="pull-right" style="padding-right: 50px;"> Mouse Make: {{ ms.Mouse_make}}</p>
+                                <p style="padding-left: 50px;">Mouse Serial: {{ ms.mouse_SN}}</p>
+                                </div>
+                            </div>
+                        {% else %}
+                        <a class="badge badge-success bg-green pull-right" href="{% url 'dashboard-connect-desktop-mouse' pk=item.id %}" style="padding-right: 20px;">Connect</a>
+                        
+                        <div class="panel-body bg-gray text-bold">
+                            
+                            <h4 style="color: #17a2b8;">Mouse</h4>
+                            <div class="alert alert-warning" role="alert"> No Mouse is currecntly connected to this Desktop. Click connect to add a Mouse</div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

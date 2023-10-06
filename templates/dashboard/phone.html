@@ -1,0 +1,66 @@
+{% extends 'partials/base.html'%}
+{% block title%}Phones Page{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+<a class="btn btn-warning btn-sm" href="{% url 'dashboard-devices'%}">Go Back</a> 
+<a class="btn btn-info btn-sm pull-right" href="{% url 'dashboard-add-phone'%}" style="margin-right: 20px;">Add Phone</a>
+{% if items %}
+<div class="container col-md-10 " style="padding: 0px; padding-right: 25px; overflow: scroll;" >
+    <div class="row my-2">
+        <div class="col-md-6">
+            <table class="table bg-gray" style="white-space: nowrap;">
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col">Device Number</th>
+                        <th scope="col">Pf/No.</th>
+                        <th scope="col">Make</th>
+                        <th scope="col">Model</th>
+                        <th scope="col">Imei No.</th>
+                        <th scope="col">Phone No.</th>
+                        <th scope="col">apk_version</th>
+                        <th scope="col">android_version</th>
+                        <th scope="col">regionName</th>
+                        <th scope="col">zone</th>
+                        <th scope="col">condition</th>
+                        <th scope="col">Assigned User</th>
+                        <th scope="col">Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for items in items %}
+                    <tr>                           
+                        <td>{{ items.Device_number }}</td>
+                        <td>{{ items.man_no}}</td>
+                        <td>{{ items.Make }}</td>
+                        <td>{{ items.Model }}</td>
+                        <td>{{ items.Serial_Number }}</td>
+                        <td>{{ items.Phone_number }}</td>
+                        <td>{{ items.apk_version}}</td>
+                        <td>{{ items.android_version}}</td>
+                        <td>{{ items.region}}</td>
+                        <td>{{ items.zone}}</td>
+                        <td>{{ items.Condition }}</td>
+                        <td>{{ items.assign }}</td>
+                        <td>{{ items.last_updated}}</td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="">Edit</a> 
+                            <a class="btn btn-danger btn-sm" href="">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!--End Table-->
+
+{% else %}
+<p>No Phone Found.<br> Create one by clicking <a href="{% url 'dashboard-add-phone'%}">Add Phone</a>.</p>
+
+{% endif %}
+
+{% endblock %}

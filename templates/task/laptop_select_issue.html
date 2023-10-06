@@ -1,0 +1,59 @@
+{% extends 'partials/base.html'%}
+{% block title%}Laptop Select{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+{% if lappy %}
+<div class="container col-md-10 " style="padding: 0px; padding-right: 25px;" >
+    <div class="row my-2">
+        <p style="padding-left: 25px;"><h4> Select Laptop To Assign </h4></p>
+        <div class="col-md-12">  
+             
+            <table class="table bg-gray" style="white-space: nowrap;word-spacing:1px;">
+                <thead class="bg-info">
+                    <tr class="text-white" style="font-size: small;">
+                        <th scope="col">Computer Name</th>
+                        <th scope="col">Laptop S/N</th>
+                        <th scope="col">RAM </th>
+                        <th scope="col">Hard Disk </th>
+                        <th scope="col"> Station</th>
+                        <th scope="col">Region</th>
+                        <th scope="col">Condition</th>
+                        <th scope="col">Assigned User</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in lappy %}   
+                    
+                    <tr 
+                    style="font-size: smaller; cursor: pointer;">
+                        
+                        
+                            <td><a href="#">{{ item.name}}</a></td>
+                            <td>{{ item.sn}}</td>
+                            <td>{{ item.ram}} GB </td>                      
+                            <td>{{ item.hard_disk }} GB </td>   
+                            
+                            <td>{{ items.station}}</td>                    
+                            <td>{{ item.region}}</td>
+                            <td>{{ item.condition}}</td>
+                            <td>{{ item.user}}</td>
+                                   
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!--End Table-->
+{% else %}
+<p>No Laptop Found. create one by clicking <a href="{% url 'dashboard-add-laptop'%}">Add laptop</a> </p>
+{% endif %}
+
+{% endblock %}

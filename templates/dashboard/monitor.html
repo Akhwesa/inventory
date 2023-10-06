@@ -1,0 +1,78 @@
+{% extends 'partials/base.html'%}
+{% block title%}Monitors{% endblock%}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!--Table-->
+{% if items %}
+<div class="container" >
+    <div class="row my-2">
+        <div class="col-md-4">
+            <div class="border bg-white p-3">
+                <h4>Add New Monitor </h4><br>
+                <p>For Pc.</p>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ add_monitor_form|crispy }}
+                    <input class="btn btn-success btn-block" type="submit" value="Add Monitor">
+
+                </form>
+            </div>
+        </div>
+        <div class="col-md-8">   
+            <table class="table bg-gray" style="white-space: nowrap;font-size:small; word-spacing:1px;" >
+                <thead class="bg-info">
+                    <tr class="text-white">
+                        <th scope="col">Monitor Make</th>
+                        <th scope="col">Monitor S/N</th>
+                        <th scope="col">Desktop Assigned</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}   
+                    <tr> 
+                        <td>{{ item.monitor_make}}</td>
+                        <td>{{ item.monitor_SN}}</td>                
+                        <td>{{ item.monitor_pc }} </td>
+                        <td>
+                            <a class="btn btn-info btn-sm" href="">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm" href="">Delete</a>
+                        </td>
+                    
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<!--End Table-->
+{% else %}
+<div class="container" >
+    <div class="row my-2">
+        <div class="col-md-4">
+            <div class="borderDisk bg-white p-3">
+                <h4>Add Monitor</h4>
+                <hr>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ add_monitor_form|crispy }}
+                    <input class="btn btn-success btn-block" type="submit" value="Add Monitor">
+
+                </form>
+            </div>
+        </div>
+        <p>No Monitor Found. create one...</p>
+    </div>
+</div>
+{% endif %}
+
+
+
+{% endblock %}
